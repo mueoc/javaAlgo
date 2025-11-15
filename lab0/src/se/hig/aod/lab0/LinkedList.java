@@ -61,7 +61,6 @@ public class LinkedList<T> implements List<T> {
 
     public T removeLast() throws ListEmptyException {
         // Implementation here
-        head.next;
         return null; // Placeholder
     }
 
@@ -83,7 +82,8 @@ public class LinkedList<T> implements List<T> {
 
     public T getLast() throws ListEmptyException {
         // Implementation here
-        return head.next; // Placeholder
+        
+        return null; // Placeholder
     }
     
     // Other methods...
