@@ -1,0 +1,90 @@
+package se.hig.aod.lab0;
+
+public class LinkedList<T> implements List<T> {
+    
+    private class ListNode<T> {
+        ListNode<T> next;
+        T data;
+
+        ListNode(T data, ListNode<T> next) {
+            this.next = next;
+            this.data = data;
+        }
+
+    }
+
+    private ListNode<T> head;
+    //maybe needed
+    //Node<T> tail;
+    int numOfElement;
+
+    public LinkedList() {
+        head = null;
+        //tail = null;
+        numOfElement = 0;
+    }
+
+    public boolean isEmpty() {
+        // Implementation here
+        return head == null;
+    }
+
+    public void clear() {
+        // Implementation here
+        head = null;
+        numOfElement = 0;
+    }
+
+
+    public T getFirst() throws ListEmptyException {
+        // Implementation here
+        if (isEmpty()) {
+            throw new ListEmptyException("List is empty");
+        }
+
+        return head.data; // Placeholder
+    }
+
+    public void insertLast(T item) {
+        // Implementation here
+        ListNode<T> newNode = new ListNode<>(item, null);
+        if (isEmpty()) {
+            head = newNode;
+        } else {
+            ListNode<T> current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    public T removeLast() throws ListEmptyException {
+        // Implementation here
+        head.next;
+        return null; // Placeholder
+    }
+
+    public int numberOfElements() {
+        // Implementation here
+        return numOfElement;
+    }
+
+    public void insertFirst(T item) {
+        // Implementation here
+        ListNode<T> newNode = new ListNode<>(item, head);
+        head = newNode;
+    }
+
+    public T removeFirst() throws ListEmptyException {
+        // Implementation here
+        return head.data; // Placeholder
+    }
+
+    public T getLast() throws ListEmptyException {
+        // Implementation here
+        return head.next; // Placeholder
+    }
+    
+    // Other methods...
+}
