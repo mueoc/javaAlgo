@@ -104,4 +104,10 @@ class LinkedListTest {
 		}
 	}
 
+	@Test
+	public void testToStringRecursive() {
+		initializeList();
+		assertEquals("[1, 2, 3, 4, 5]", listUnderTest.toStringRecursive(), "toStringRecursive() should return string representation of list");
+	}
+
 }

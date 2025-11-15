@@ -1,4 +1,6 @@
 package se.hig.aod.lab0;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class LinkedList<T> implements PrintableList<T> {
     
@@ -10,13 +12,18 @@ public class LinkedList<T> implements PrintableList<T> {
             this.next = next;
             this.data = data;
         }
-
     }
 
     private ListNode<T> head;
     //maybe needed
     //Node<T> tail;
     int numOfElement;
+    ArrayList<String> arryString = new ArrayList<String>();
+    String arrResult = "";
+    int count = 0;
+    boolean secondRun = true;
+    String savesFirst = "";
+
 
     public LinkedList() {
         head = null;
@@ -110,14 +117,18 @@ public class LinkedList<T> implements PrintableList<T> {
         if(isEmpty()) {
             return "[]";
         }
-        
-        String arryString[] = new String[numOfElement];
         T current = head.data;
         String makeItString = current.toString();
-        arryString[numOfElement] = makeItString;
+        arryString.add(makeItString);
         head = head.next;
         toStringRecursive();
-        return arryString[numOfElement]; // Placeholder
+        count++;
+        if(count == numOfElement)
+        {            
+            arrResult = "[" + String.join(", ", arryString) + "]";
+        }
+
+        return arrResult; // Placeholder
     }
 
     public String toStringReverseRecursive() {
