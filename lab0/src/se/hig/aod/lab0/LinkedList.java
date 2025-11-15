@@ -94,7 +94,6 @@ public class LinkedList<T> implements PrintableList<T> {
 
     public T getLast() throws ListEmptyException {
         // Implementation here
-        
         if(isEmpty()) {
             throw new ListEmptyException("List is empty");
         }
@@ -102,7 +101,7 @@ public class LinkedList<T> implements PrintableList<T> {
         while (current.next != null) {
             current = current.next;
         }
-        T temp = current.next.data;
+        T temp = current.data;
         return temp; // Placeholder
     }
     
