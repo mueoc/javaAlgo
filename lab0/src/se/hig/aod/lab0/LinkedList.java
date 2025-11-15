@@ -137,7 +137,7 @@ public class LinkedList<T> implements PrintableList<T> {
         String makeItString = current.toString();
         arryString.add(makeItString);
         head = head.next;
-        toStringRecursive();
+        toStringReverseRecursive();
         count++;
         if(count == numOfElement)
         {   
