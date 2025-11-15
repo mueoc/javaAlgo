@@ -50,12 +50,14 @@ public class LinkedList<T> implements PrintableList<T> {
         ListNode<T> newNode = new ListNode<>(item, null);
         if (isEmpty()) {
             head = newNode;
+            numOfElement++;
         } else {
             ListNode<T> current = head;
             while (current.next != null) {
                 current = current.next;
             }
             current.next = newNode;
+            numOfElement++;
         }
     }
 
@@ -82,6 +84,7 @@ public class LinkedList<T> implements PrintableList<T> {
         // Implementation here
         ListNode<T> newNode = new ListNode<>(item, head);
         head = newNode;
+        numOfElement++;
     }
 
     public T removeFirst() throws ListEmptyException {
