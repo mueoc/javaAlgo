@@ -1,6 +1,6 @@
 package se.hig.aod.lab0;
 
-public class LinkedList<T> implements List<T> {
+public class LinkedList<T> implements PrintableList<T> {
     
     private class ListNode<T> {
         ListNode<T> next;
@@ -61,7 +61,16 @@ public class LinkedList<T> implements List<T> {
 
     public T removeLast() throws ListEmptyException {
         // Implementation here
-        return null; // Placeholder
+        if(isEmpty()) {
+            throw new ListEmptyException("List is empty");
+        }
+        ListNode<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        T temp = current.data;
+        current.next = null;
+        return temp; // Placeholder
     }
 
     public int numberOfElements() {
@@ -83,8 +92,31 @@ public class LinkedList<T> implements List<T> {
     public T getLast() throws ListEmptyException {
         // Implementation here
         
-        return null; // Placeholder
+        if(isEmpty()) {
+            throw new ListEmptyException("List is empty");
+        }
+        ListNode<T> current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        T temp = current.next.data;
+        return temp; // Placeholder
     }
     
+    public String toStringRecursive() {
+        // Implementation here
+        T current = head.data;
+        String arryString[] = new String[numOfElement];
+        String makeItString = current.toString();
+        arryString[numOfElement] = makeItString;
+        head = head.next;
+        toStringRecursive();
+        return arryString[numOfElement]; // Placeholder
+    }
+
+    public String toStringReverseRecursive() {
+        // Implementation here
+        return ""; // Placeholder
+    }
     // Other methods...
 }
