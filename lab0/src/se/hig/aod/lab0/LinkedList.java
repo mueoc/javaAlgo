@@ -1,6 +1,7 @@
 package se.hig.aod.lab0;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LinkedList<T> implements PrintableList<T> {
     
@@ -13,7 +14,6 @@ public class LinkedList<T> implements PrintableList<T> {
             this.data = data;
         }
     }
-
     private ListNode<T> head;
     //maybe needed
     //Node<T> tail;
@@ -21,9 +21,6 @@ public class LinkedList<T> implements PrintableList<T> {
     ArrayList<String> arryString = new ArrayList<String>();
     String arrResult = "";
     int count = 0;
-    boolean secondRun = true;
-    String savesFirst = "";
-
 
     public LinkedList() {
         head = null;
@@ -124,8 +121,8 @@ public class LinkedList<T> implements PrintableList<T> {
         toStringRecursive();
         count++;
         if(count == numOfElement)
-        {            
-            arrResult = "[" + String.join(", ", arryString) + "]";
+        {   
+            arrResult = "[" + String.join(", ", arryString) + "]";            
         }
 
         return arrResult; // Placeholder
@@ -136,7 +133,19 @@ public class LinkedList<T> implements PrintableList<T> {
         if(isEmpty()) {
             return "[]";
         }
-        return ""; // Placeholder
+        T current = head.data;
+        String makeItString = current.toString();
+        arryString.add(makeItString);
+        head = head.next;
+        toStringRecursive();
+        count++;
+        if(count == numOfElement)
+        {   
+            Collections.reverse(arryString);
+            arrResult = "[" + String.join(", ", arryString) + "]";
+        }
+
+        return arrResult; // Placeholder
     }
     // Other methods...
 }

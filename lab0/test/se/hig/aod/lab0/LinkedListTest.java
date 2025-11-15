@@ -110,4 +110,10 @@ class LinkedListTest {
 		assertEquals("[1, 2, 3, 4, 5]", listUnderTest.toStringRecursive(), "toStringRecursive() should return string representation of list");
 	}
 
+	@Test
+	public void toStringReverseRecursive() {
+		initializeList();
+		assertEquals("[5, 4, 3, 2, 1]", listUnderTest.toStringReverseRecursive(), "toStringReverseRecursive() should return reversed string representation of list");
+	}
+
 }
