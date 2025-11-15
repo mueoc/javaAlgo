@@ -107,8 +107,12 @@ public class LinkedList<T> implements PrintableList<T> {
     
     public String toStringRecursive() {
         // Implementation here
-        T current = head.data;
+        if(isEmpty()) {
+            return "[]";
+        }
+        
         String arryString[] = new String[numOfElement];
+        T current = head.data;
         String makeItString = current.toString();
         arryString[numOfElement] = makeItString;
         head = head.next;
@@ -118,6 +122,9 @@ public class LinkedList<T> implements PrintableList<T> {
 
     public String toStringReverseRecursive() {
         // Implementation here
+        if(isEmpty()) {
+            return "[]";
+        }
         return ""; // Placeholder
     }
     // Other methods...
