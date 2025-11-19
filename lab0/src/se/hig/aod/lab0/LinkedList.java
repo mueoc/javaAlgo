@@ -3,6 +3,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.w3c.dom.NodeList;
+
 public class LinkedList<T> implements PrintableList<T> {
     
     private class ListNode<T> {
@@ -21,6 +23,7 @@ public class LinkedList<T> implements PrintableList<T> {
     ArrayList<String> arryString = new ArrayList<String>();
     String arrResult = "";
     int count = 0;
+    //private ListNode<T> prev;
 
     public LinkedList() {
         head = null;
@@ -130,21 +133,23 @@ public class LinkedList<T> implements PrintableList<T> {
 
     public String toStringReverseRecursive() {
         // Implementation here
-        if(isEmpty()) {
+        if(isEmpty()) 
             return "[]";
-        }
-        T current = head.data;
-        String makeItString = current.toString();
-        arryString.add(makeItString);
+        
+        ListNode prev = head;
+        //prev.next = head.next;
         head = head.next;
         toStringReverseRecursive();
+
+        String makeItString = prev.data.toString();
+
+        arryString.add(makeItString);
+        // toStringReverseRecursive();
         count++;
         if(count == numOfElement)
         {   
-            Collections.reverse(arryString);
             arrResult = "[" + String.join(", ", arryString) + "]";
         }
-
         return arrResult; // Placeholder
     }
     // Other methods...
