@@ -1,7 +1,5 @@
 package se.hig.aod.lab0;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import org.w3c.dom.NodeList;
 
@@ -20,9 +18,7 @@ public class LinkedList<T> implements PrintableList<T> {
     //maybe needed
     //Node<T> tail;
     int numOfElement;
-    ArrayList<String> arryString = new ArrayList<String>();
     String arrResult = "";
-    int count = 0;
     //private ListNode<T> prev;
 
     public LinkedList() {
@@ -114,43 +110,54 @@ public class LinkedList<T> implements PrintableList<T> {
     
     public String toStringRecursive() {
         // Implementation here
-        if(isEmpty()) {
-            return "[]";
-        }
-        T current = head.data;
-        String makeItString = current.toString();
-        arryString.add(makeItString);
-        head = head.next;
-        toStringRecursive();
-        count++;
-        if(count == numOfElement)
-        {   
-            arrResult = "[" + String.join(", ", arryString) + "]";            
-        }
+        arrResult = "[" + helpFunctionForRecursive(head) + "]";
+        char firstNum = arrResult.charAt(0);
+        char lastNum = arrResult.charAt(arrResult.length() - 2);
 
-        return arrResult; // Placeholder
+        int size = arrResult.length();
+        String temp = "";
+        for(int x = 0; x < size; x++) {
+            if(arrResult.charAt(x) != '[' && arrResult.charAt(x) != ']' &&
+            arrResult.charAt(x) != firstNum && arrResult.charAt(x) != lastNum)
+                temp = temp + arrResult.charAt(x) +  ", ";
+            else
+                temp = temp + arrResult.charAt(x);
+        }
+        return temp;
     }
 
     public String toStringReverseRecursive() {
         // Implementation here
-        if(isEmpty()) 
-            return "[]";
-        
-        ListNode prev = head;
-        //prev.next = head.next;
-        head = head.next;
-        toStringReverseRecursive();
-
-        String makeItString = prev.data.toString();
-
-        arryString.add(makeItString);
-        // toStringReverseRecursive();
-        count++;
-        if(count == numOfElement)
-        {   
-            arrResult = "[" + String.join(", ", arryString) + "]";
+        arrResult = "[" + helpFunctionForReverseRecursive(head) + "]";
+        char firstNum = arrResult.charAt(0);
+        char lastNum = arrResult.charAt(arrResult.length() - 2);
+        int size = arrResult.length();
+        String temp = "";
+        for(int x = 0; x < size; x++) {
+            if(arrResult.charAt(x) != '[' && arrResult.charAt(x) != ']' &&
+            arrResult.charAt(x) != firstNum && arrResult.charAt(x) != lastNum)
+                temp = temp + arrResult.charAt(x) +  ", ";
+            else
+                temp = temp + arrResult.charAt(x);
         }
-        return arrResult; // Placeholder
+        return temp;
     }
     // Other methods...
+
+    private String helpFunctionForReverseRecursive(ListNode<T> node) {
+        if (node == null) 
+            return "";
+        else 
+            return helpFunctionForReverseRecursive(node.next) + node.data.toString();
+    }   
+
+    private String helpFunctionForRecursive(ListNode<T> node) {
+        if (node == null) 
+            return "";
+        else 
+            return node.data.toString() + helpFunctionForRecursive(node.next);
+    }
 }
+
+
+ 
