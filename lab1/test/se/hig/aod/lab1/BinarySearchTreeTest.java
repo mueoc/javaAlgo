@@ -2,8 +2,6 @@ package se.hig.aod.lab1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +12,8 @@ class BinarySearchTreeTest {
 
 	private BinarySearchTree<Integer> listUnderTest;
 	private final int[] fixture = {5, 2, 4, 3, 1};
+	private final int[] fixture2 = {5, 2, 4, 3, 1};
+
 	
 	/**
 	 * Resets list to a new empty LinkedList-instance
@@ -47,7 +47,7 @@ class BinarySearchTreeTest {
 	public void searchElement()
 	{
 		for(int x = 0; x < 5; x++)
-			listUnderTest.addElement(fixture[x]);
+			listUnderTest.addElement(fixture2[x]);
 		
 		for(int x = 0; x < 5; x++)
 			assertEquals(fixture[x], listUnderTest.searchElement(fixture[x]));
@@ -69,5 +69,17 @@ class BinarySearchTreeTest {
 			listUnderTest.addElement(fixture[x]);
 		
 		assertEquals("12345", listUnderTest.toString());
+	}
+
+	@Test
+	public void readingFromFileShuffle()
+	{
+		listUnderTest.elementToSeatchForSuffle();
+	}
+
+	@Test
+	public void readingFromFileSort()
+	{
+		listUnderTest.elementToSeatchForSort();
 	}
 }
