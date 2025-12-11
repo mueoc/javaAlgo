@@ -1,163 +1,249 @@
 package se.hig.aod.lab0;
-import java.lang.reflect.Array;
 
-import org.w3c.dom.NodeList;
-
+/**
+ * A singly linked list implementation that supports basic list operations such as
+ * inserting, removing, and retrieving elements from both the beginning and the end.
+ *
+ * @author Muqtada AlDebes
+ * @param <T> The type of elements stored in the list.
+ */
 public class LinkedList<T> implements PrintableList<T> {
-    
+
+    /**
+     * Internal node class used to represent individual elements in the linked list.
+     *
+     * @param <T> The type of data stored in the node.
+     */
     private class ListNode<T> {
         ListNode<T> next;
         T data;
 
+        /**
+         * Creates a new ListNode with given data and reference to the next node.
+         *
+         * @param data The data stored in this node.
+         * @param next Reference to the next node.
+         */
         ListNode(T data, ListNode<T> next) {
             this.next = next;
             this.data = data;
         }
     }
+
     private ListNode<T> head;
-    //maybe needed
-    //Node<T> tail;
     int numOfElement;
     String arrResult = "";
-    //private ListNode<T> prev;
 
+    /**
+     * Creates an empty LinkedList.
+     */
     public LinkedList() {
         head = null;
-        //tail = null;
         numOfElement = 0;
     }
 
+    /**
+     * Checks whether the list is empty.
+     *
+     * @return true if the list is empty, false otherwise.
+     */
     public boolean isEmpty() {
-        // Implementation here
         return head == null;
     }
 
+    /**
+     * Removes all elements from the list.
+     * The list will become empty after calling this method.
+     */
     public void clear() {
-        // Implementation here
         head = null;
         numOfElement = 0;
     }
 
-
+    /**
+     * Retrieves (but does not remove) the first element in the list.
+     *
+     * @return The first element.
+     * @throws ListEmptyException If the list is empty.
+     */
     public T getFirst() throws ListEmptyException {
-        // Implementation here
         if (isEmpty()) {
             throw new ListEmptyException("List is empty");
         }
-
-        return head.data; // Placeholder
+        return head.data;
     }
 
+    /**
+     * Inserts a new element at the end of the list.
+     *
+     * @param item The element to insert.
+     */
     public void insertLast(T item) {
-        // Implementation here
         ListNode<T> newNode = new ListNode<>(item, null);
+
         if (isEmpty()) {
             head = newNode;
-            numOfElement++;
         } else {
             ListNode<T> current = head;
             while (current.next != null) {
                 current = current.next;
             }
             current.next = newNode;
-            numOfElement++;
         }
+
+        numOfElement++;
     }
 
+    /**
+     * Removes the last element from the list.
+     *
+     * @return The removed element.
+     * @throws ListEmptyException If the list is empty.
+     */
     public T removeLast() throws ListEmptyException {
-        // Implementation here
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new ListEmptyException("List is empty");
         }
+
+        // If only one element
+        if (head.next == null) {
+            T temp = head.data;
+            head = null;
+            numOfElement--;
+            return temp;
+        }
+
         ListNode<T> current = head;
-        while (current.next != null) {
+        while (current.next.next != null) {
             current = current.next;
         }
-        T temp = current.data;
+
+        T temp = current.next.data;
         current.next = null;
-        return temp; // Placeholder
+        numOfElement--;
+        return temp;
     }
 
+    /**
+     * Returns the number of elements in the list.
+     *
+     * @return Number of elements.
+     */
     public int numberOfElements() {
-        // Implementation here
         return numOfElement;
     }
 
+    /**
+     * Inserts a new element at the beginning of the list.
+     *
+     * @param item The element to insert.
+     */
     public void insertFirst(T item) {
-        // Implementation here
         ListNode<T> newNode = new ListNode<>(item, head);
         head = newNode;
         numOfElement++;
     }
 
+    /**
+     * Removes the first element from the list.
+     *
+     * @return The removed element.
+     * @throws ListEmptyException If the list is empty.
+     */
     public T removeFirst() throws ListEmptyException {
-        // Implementation here
-        return head.data; // Placeholder
-    }
-
-    public T getLast() throws ListEmptyException {
-        // Implementation here
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new ListEmptyException("List is empty");
         }
+
+        T temp = head.data;
+        head = head.next;
+        numOfElement--;
+        return temp;
+    }
+
+    /**
+     * Retrieves the last element in the list (without removing it).
+     *
+     * @return The last element.
+     * @throws ListEmptyException If the list is empty.
+     */
+    public T getLast() throws ListEmptyException {
+        if (isEmpty()) {
+            throw new ListEmptyException("List is empty");
+        }
+
         ListNode<T> current = head;
         while (current.next != null) {
             current = current.next;
         }
-        T temp = current.data;
-        return temp; // Placeholder
+
+        return current.data;
     }
-    
+
+    /**
+     * Converts the list to a string representation using recursion.
+     *
+     * @return A string containing all elements in forward order.
+     */
     public String toStringRecursive() {
-        // Implementation here
         arrResult = "[" + helpFunctionForRecursive(head) + "]";
-        char firstNum = arrResult.charAt(0);
-        char lastNum = arrResult.charAt(arrResult.length() - 2);
-
-        int size = arrResult.length();
-        String temp = "";
-        for(int x = 0; x < size; x++) {
-            if(arrResult.charAt(x) != '[' && arrResult.charAt(x) != ']' &&
-            arrResult.charAt(x) != firstNum && arrResult.charAt(x) != lastNum)
-                temp = temp + arrResult.charAt(x) +  ", ";
-            else
-                temp = temp + arrResult.charAt(x);
+        
+        // Formatting output
+        StringBuilder temp = new StringBuilder();
+        for (int i = 0; i < arrResult.length(); i++) {
+            char c = arrResult.charAt(i);
+            if (c != '[' && c != ']' &&
+                c != arrResult.charAt(0) && c != arrResult.charAt(arrResult.length() - 2)) {
+                temp.append(c).append(", ");
+            } else {
+                temp.append(c);
+            }
         }
-        return temp;
+        return temp.toString();
     }
 
+    /**
+     * Converts the list to a string representation in reverse order using recursion.
+     *
+     * @return A string containing all elements in reverse order.
+     */
     public String toStringReverseRecursive() {
-        // Implementation here
         arrResult = "[" + helpFunctionForReverseRecursive(head) + "]";
-        char firstNum = arrResult.charAt(0);
-        char lastNum = arrResult.charAt(arrResult.length() - 2);
-        int size = arrResult.length();
-        String temp = "";
-        for(int x = 0; x < size; x++) {
-            if(arrResult.charAt(x) != '[' && arrResult.charAt(x) != ']' &&
-            arrResult.charAt(x) != firstNum && arrResult.charAt(x) != lastNum)
-                temp = temp + arrResult.charAt(x) +  ", ";
-            else
-                temp = temp + arrResult.charAt(x);
+
+        StringBuilder temp = new StringBuilder();
+        for (int i = 0; i < arrResult.length(); i++) {
+            char c = arrResult.charAt(i);
+            if (c != '[' && c != ']' &&
+                c != arrResult.charAt(0) && c != arrResult.charAt(arrResult.length() - 2)) {
+                temp.append(c).append(", ");
+            } else {
+                temp.append(c);
+            }
         }
-        return temp;
+        return temp.toString();
     }
-    // Other methods...
 
-    private String helpFunctionForReverseRecursive(ListNode<T> node) {
-        if (node == null) 
-            return "";
-        else 
-            return helpFunctionForReverseRecursive(node.next) + node.data.toString();
-    }   
-
+    /**
+     * Helper method for recursive forward traversal.
+     *
+     * @param node The current node.
+     * @return A string representation of the list from this node onward.
+     */
     private String helpFunctionForRecursive(ListNode<T> node) {
-        if (node == null) 
+        if (node == null)
             return "";
-        else 
-            return node.data.toString() + helpFunctionForRecursive(node.next);
+        return node.data.toString() + helpFunctionForRecursive(node.next);
+    }
+
+    /**
+     * Helper method for recursive reverse traversal.
+     *
+     * @param node The current node.
+     * @return A string representation of the list in reverse from this node backward.
+     */
+    private String helpFunctionForReverseRecursive(ListNode<T> node) {
+        if (node == null)
+            return "";
+        return helpFunctionForReverseRecursive(node.next) + node.data.toString();
     }
 }
-
-
- 
